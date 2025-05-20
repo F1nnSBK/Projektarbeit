@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class Test {
 
     public static void main(String[] args) {
-        // Beispielhafte Daten – du kannst sie durch echte AggregatedRows ersetzen
         ArrayList<AggregatedRow> rows = new ArrayList<>();
         rows.add(new AggregatedRow("Germany", 20, 44, 3.33, 0.14));
         rows.add(new AggregatedRow("Vietnam", 37, 37, 5.00, 5.00));
