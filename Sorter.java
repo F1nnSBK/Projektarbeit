@@ -3,45 +3,62 @@ package Projektarbeit;
 import java.util.ArrayList;
 
     public class Sorter {
-        public void sort(ArrayList<AggregatedRow> rows) {
-        int n = rows.size();
-        if(rows == null || rows.size() <= 1) { return; }
-        quickSortHelper(rows, 0, n - 1);
-        printArr(rows);
-    }
-
-    private void quickSortHelper(ArrayList<AggregatedRow> rows, int low, int high) {
-        if (low < high) {
-            int pivotIndex = partition(rows, low, high);
-            quickSortHelper(rows, low, pivotIndex - 1);
-            quickSortHelper(rows, pivotIndex + 1, high);
+        public ArrayList<AggregatedRow> sort(ArrayList<AggregatedRow> rows) {
+        if(rows == null || rows.size() <= 1) { throw new IllegalArgumentException("Empty list received"); }
+            mergeSort(rows);
+            return rows;
         }
+
+
+    private void mergeSort(ArrayList<AggregatedRow> rows) {
+        if (rows.size() <= 1) return;
+
+        int middleIndex = rows.size() / 2;
+
+        ArrayList<AggregatedRow> leftSide = new ArrayList<>(middleIndex);
+        ArrayList<AggregatedRow> rightSide = new ArrayList<>(rows.size() - middleIndex);
+
+        for (int i = 0; i < middleIndex; i++) {
+            leftSide.add(rows.get(i));
+        }
+        for (int i = middleIndex; i < rows.size(); i++) {
+            rightSide.add(rows.get(i));
+        }
+
+        mergeSort(leftSide);
+        mergeSort(rightSide);
+
+        merge(rows, leftSide, rightSide);
     }
 
-    private int partition(ArrayList<AggregatedRow> rows, int low, int high) {
-        AggregatedRow pivot = rows.get(high);
-        int i = low - 1;
+    private void merge(ArrayList<AggregatedRow> rows, ArrayList<AggregatedRow> leftSide, ArrayList<AggregatedRow> rightSide) {
+        int leftIndex = 0;
+        int rightIndex = 0;
+        int mergedIndex = 0;
 
-        for (int j = low; j < high; j++) {
-            if (rows.get(j).sortMetric >= pivot.sortMetric) {
-                i++;
-                swap(rows, i, j);
+        while (leftIndex < leftSide.size() && rightIndex < rightSide.size()) {
+            if (leftSide.get(leftIndex).sortMetric >= rightSide.get(rightIndex).sortMetric) {
+                rows.set(mergedIndex++, leftSide.get(leftIndex++));
+            } else {
+                rows.set(mergedIndex++, rightSide.get(rightIndex++));
             }
         }
-        swap(rows, i + 1, high);
-        return i + 1;
+
+        while (leftIndex < leftSide.size()) {
+            rows.set(mergedIndex++, leftSide.get(leftIndex++));
+        }
+
+        while (rightIndex < rightSide.size()) {
+            rows.set(mergedIndex++, rightSide.get(rightIndex++));
+        }
     }
 
-    private void swap(ArrayList<AggregatedRow> rows, int i, int j) {
-        AggregatedRow tempRow = rows.get(i);
-        rows.set(i, rows.get(j));
-        rows.set(j, tempRow);
-    }
+
 
     public static void printArr(ArrayList<AggregatedRow> arr) {
           System.out.println("_____________________");
         for(AggregatedRow row : arr) {
-            System.out.println(row.toString());
+            System.out.println(row);
         }
           System.out.println("_____________________");
     }

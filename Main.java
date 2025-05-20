@@ -66,6 +66,8 @@ public static void main(String[] args) {
         // }
 
         Sorter sorter = new Sorter();
-        sorter.sort(aggregatedRows);
+        ArrayList<AggregatedRow> sortedRows = sorter.sort(aggregatedRows);
+
+        Sorter.printArr(sortedRows);
     }
 }
