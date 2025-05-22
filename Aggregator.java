@@ -1,14 +1,15 @@
 package Projektarbeit;
 
+import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Aggregator {
 
-    public ArrayList<AggregatedRow> aggregate(ArrayList<Row> rows) {
+    public List<AggregatedRow> aggregate(List<Row> rows) {
         
-    Map<String, ArrayList<Row>> groupedRows = new HashMap<String, ArrayList<Row>>();
+    Map<String, List<Row>> groupedRows = new HashMap<String, List<Row>>();
 
     for (Row row : rows) {
         if (!groupedRows.containsKey(row.location)) {
@@ -17,11 +18,11 @@ public class Aggregator {
         groupedRows.get(row.location).add(row);
     }
 
-    ArrayList<AggregatedRow> aggregatedRows = new ArrayList<>();
+    List<AggregatedRow> aggregatedRows = new ArrayList<>();
 
-    for (Map.Entry<String, ArrayList<Row>> entry : groupedRows.entrySet()) {
+    for (Map.Entry<String, List<Row>> entry : groupedRows.entrySet()) {
         String location = entry.getKey();
-        ArrayList<Row> personsInLocation = entry.getValue();
+        List<Row> personsInLocation = entry.getValue();
 
         if (personsInLocation.isEmpty()) {
             continue;
@@ -54,7 +55,13 @@ public class Aggregator {
         }
 
         aggregatedRows.add(
-            new AggregatedRow(location, minAge, maxAge, avgAddictionLevel, sortMetric));
+            new AggregatedRow(
+                location, 
+                minAge,
+                maxAge, 
+                avgAddictionLevel, 
+                sortMetric
+            ));
         }
 
         return aggregatedRows;

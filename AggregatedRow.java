@@ -17,7 +17,9 @@ public class AggregatedRow {
     }
 
     public String toString() {
-        return String.format("AggregatedRow{Location='%s', MinAge=%d, MaxAge=%d, AvgAddiction=%.2f, SortMetric=%.2f}",
-                             location, minAge, maxAge, avgAddictionLevel, sortMetric);
+        return String.format(
+            "%-10s | MinAge: %2d | MaxAge: %2d | AvgAddiction: %5.2f | SortMetric: %8.5f",
+            location, minAge, maxAge, avgAddictionLevel, sortMetric
+        );
     }
 }

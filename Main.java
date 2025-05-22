@@ -1,10 +1,11 @@
 package Projektarbeit;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
-     public static ArrayList<Row> createRowObjectsFromCsv() {
+     public static List<Row> createRowObjectsFromCsv() {
         String csvData =
                 "UserID,Gender,Age,Income,Profession,Demographics,Platform,Location,AddictionLevel,SelfControl\n" +
                 "626,Female,62,95250,Server,Urban,YouTube,Indonesia,7,3\n" +
@@ -28,7 +29,7 @@ public class Main {
                 "276,Female,20,28179,Driver,Rural,TikTok,Germany,5,5\n" +
                 "235,Female,33,45556,Driver,Urban,Instagram,Brazil,2,8";
 
-        ArrayList<Row> rowObjects = new ArrayList<>();
+        List<Row> rowObjects = new ArrayList<>();
         String[] lines = csvData.split("\n");
 
         for (int i = 1; i < lines.length; i++) {
@@ -53,20 +54,15 @@ public class Main {
 
 
 public static void main(String[] args) {
-        ArrayList<Row> rawData = createRowObjectsFromCsv();
+        List<Row> rawData = createRowObjectsFromCsv();
         System.out.println("--- Rohdaten (" + rawData.size() + " Einträge) ---");
 
-        System.out.println("\n--- Aggregation wird durchgeführt ---");
         Aggregator aggregator = new Aggregator();
-        ArrayList<AggregatedRow> aggregatedRows = aggregator.aggregate(rawData);
-        System.out.println("Anzahl aggregierter Locations: " + aggregatedRows.size());
-
-        // for (AggregatedRow aR : aggregatedRows) {
-        //     System.out.println(aR.toString());
-        // }
+        List<AggregatedRow> aggregatedRows = aggregator.aggregate(rawData);
+        System.out.println("--- Anzahl aggregierter Locations (" + aggregatedRows.size() + " Locations) ---");
 
         Sorter sorter = new Sorter();
-        ArrayList<AggregatedRow> sortedRows = sorter.sort(aggregatedRows);
+        List<AggregatedRow> sortedRows = sorter.sort(aggregatedRows);
 
         Sorter.printArr(sortedRows);
     }

@@ -12,7 +12,9 @@ public class Row {
     }
 
     public String toString() {
-        return "Row{location='" + location + "', age=" + age + ", addictionLevel=" + addictionLevel + '}';
+        return "Row{location='" + location + 
+        "', age=" + age + 
+        ", addictionLevel=" + addictionLevel + '}';
     }
 
 }

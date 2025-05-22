@@ -1,22 +1,23 @@
 package Projektarbeit;
 
 import java.util.ArrayList;
+import java.util.List;
 
     public class Sorter {
-        public ArrayList<AggregatedRow> sort(ArrayList<AggregatedRow> rows) {
+        public List<AggregatedRow> sort(List<AggregatedRow> rows) {
         if(rows == null || rows.size() <= 1) { throw new IllegalArgumentException("Empty list received"); }
             mergeSort(rows);
             return rows;
         }
 
 
-    private void mergeSort(ArrayList<AggregatedRow> rows) {
+    private void mergeSort(List<AggregatedRow> rows) {
         if (rows.size() <= 1) return;
 
         int middleIndex = rows.size() / 2;
 
-        ArrayList<AggregatedRow> leftSide = new ArrayList<>(middleIndex);
-        ArrayList<AggregatedRow> rightSide = new ArrayList<>(rows.size() - middleIndex);
+        List<AggregatedRow> leftSide = new ArrayList<>(middleIndex);
+        List<AggregatedRow> rightSide = new ArrayList<>(rows.size() - middleIndex);
 
         for (int i = 0; i < middleIndex; i++) {
             leftSide.add(rows.get(i));
@@ -31,7 +32,7 @@ import java.util.ArrayList;
         merge(rows, leftSide, rightSide);
     }
 
-    private void merge(ArrayList<AggregatedRow> rows, ArrayList<AggregatedRow> leftSide, ArrayList<AggregatedRow> rightSide) {
+    private void merge(List<AggregatedRow> rows, List<AggregatedRow> leftSide, List<AggregatedRow> rightSide) {
         int leftIndex = 0;
         int rightIndex = 0;
         int mergedIndex = 0;
@@ -54,13 +55,10 @@ import java.util.ArrayList;
     }
 
 
-
-    public static void printArr(ArrayList<AggregatedRow> arr) {
-          System.out.println("_____________________");
+    public static void printArr(List<AggregatedRow> arr) {
         for(AggregatedRow row : arr) {
             System.out.println(row);
         }
-          System.out.println("_____________________");
     }
     
 }
